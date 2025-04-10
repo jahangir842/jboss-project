@@ -236,4 +236,3 @@ jar cf myapp.war -C webapp .
 - [Maven JAR Plugin](https://maven.apache.org/plugins/maven-jar-plugin/)
 - [Maven WAR Plugin](https://maven.apache.org/plugins/maven-war-plugin/) 
 
----
