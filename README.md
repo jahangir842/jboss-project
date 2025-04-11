@@ -77,20 +77,23 @@ mvn -version
 ### 2. Install WildFly
 ```bash
 # Download WildFly
-wget https://github.com/wildfly/wildfly/releases/download/26.1.2.Final/wildfly-26.1.2.Final.zip
+wget https://github.com/wildfly/wildfly/releases/download/36.0.0.Final/wildfly-36.0.0.Final.zip
 
 # Extract the archive
-unzip wildfly-26.1.2.Final.zip
+unzip wildfly-36.0.0.Final.zip
 
 # Move to desired location
-mv wildfly-26.1.2.Final /opt/wildfly
+sudo mv wildfly-36.0.0.Final /opt/wildfly
 ```
 
 ### 2. Configure Environment Variables
 ```bash
 # Add to your ~/.bashrc or ~/.zshrc
-export JBOSS_HOME=/opt/wildfly
-export PATH=$PATH:$JBOSS_HOME/bin
+
+echo 'export JBOSS_HOME=/opt/wildfly' >> ~/.bashrc
+echo 'export PATH=$PATH:$JBOSS_HOME/bin' >> ~/.bashrc
+source ~/.bashrc
+
 ```
 
 ### 3. Start WildFly Server
@@ -101,7 +104,16 @@ $JBOSS_HOME/bin/standalone.sh
 
 ### 4. Access Management Console
 - URL: http://localhost:9990
-- Default credentials: admin/admin
+
+## Authentication
+
+By default WildFly is now distributed with security enabled for the management interfaces, this means that before you connect using the administration console or remotely using the CLI you will need to add a new user, this can be achieved simply by using the add-user.sh script in the bin folder.
+
+After starting the script you will be guided through the process to add a new user: -
+
+```bash
+$JBOSS_HOME/bin/add-user.sh
+```
 
 ## Building the Application
 

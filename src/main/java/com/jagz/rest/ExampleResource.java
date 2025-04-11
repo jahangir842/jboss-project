@@ -1,6 +1,6 @@
-package com.example.rest;
+package com.jagz.rest;
 
-import com.example.ejb.ExampleService;
+import com.jagz.ejb.ExampleService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;

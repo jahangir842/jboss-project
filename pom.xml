@@ -1,59 +1,123 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    Project Object Model (POM) file for JBoss/WildFly application
+    This file defines the project configuration, dependencies, and build settings
+-->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.example</groupId>
-    <artifactId>jboss-app</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <!-- Project Identification -->
+    <groupId>com.jagz</groupId>        <!-- Organization identifier (e.g., com.yourcompany, org.yourorg) -->
+    <artifactId>Ticketing-System</artifactId>    <!-- Project name (e.g., employee-management, inventory-system) -->
+    <version>1.0.0</version>       <!-- Version number (e.g., 1.0.0, 2.1.0-SNAPSHOT) -->
+    <packaging>war</packaging>            <!-- Package type: 
+        - war: Web Application Archive (for web applications)
+        - ear: Enterprise Application Archive (for enterprise applications)
+        - jar: Java Archive (for library modules)
+    -->
 
+    <!-- Project Properties -->
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <version.wildfly>26.1.2.Final</version.wildfly>
+        <maven.compiler.source>17</maven.compiler.source>     <!-- Java source version -->
+        <maven.compiler.target>17</maven.compiler.target>     <!-- Java target version -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>  <!-- Source file encoding -->
+        <version.wildfly>30.0.0.Final</version.wildfly>       <!-- WildFly server version -->
     </properties>
 
+    <!-- External Repositories -->
+    <repositories>
+        <repository>
+            <id>jboss-public-repository-group</id>
+            <name>JBoss Public Repository Group</name>
+            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+            <layout>default</layout>
+            <!-- Repository Policies -->
+            <releases>
+                <enabled>true</enabled>           <!-- Enable release artifacts -->
+                <updatePolicy>never</updatePolicy> <!-- Don't check for updates automatically -->
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>           <!-- Enable snapshot artifacts -->
+                <updatePolicy>never</updatePolicy> <!-- Don't check for updates automatically -->
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <!-- Dependency Management -->
     <dependencyManagement>
         <dependencies>
+            <!-- WildFly BOM (Bill of Materials) - Manages versions of all WildFly dependencies -->
             <dependency>
                 <groupId>org.wildfly.bom</groupId>
                 <artifactId>wildfly-ee-with-tools</artifactId>
-                <version>${version.wildfly}</version>
+                <version>30.0.0.Final</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
 
+    <!-- Project Dependencies -->
     <dependencies>
-        <!-- Java EE 8 API -->
+        <!-- Jakarta EE 8 API - Provides interfaces for Java EE features -->
         <dependency>
             <groupId>jakarta.platform</groupId>
             <artifactId>jakarta.jakartaee-api</artifactId>
-            <version>8.0.0</version>
+            <version>9.1.0</version>
+            <scope>provided</scope>  <!-- Provided by the application server -->
+        </dependency>
+
+        <!-- Jakarta EJB -->
+        <dependency>
+            <groupId>jakarta.ejb</groupId>
+            <artifactId>jakarta.ejb-api</artifactId>
+            <version>4.0.1</version>
             <scope>provided</scope>
         </dependency>
 
-        <!-- JPA -->
+        <!-- Jakarta RESTful Web Services -->
+        <dependency>
+            <groupId>jakarta.ws.rs</groupId>
+            <artifactId>jakarta.ws.rs-api</artifactId>
+            <version>3.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Jakarta Contexts and Dependency Injection -->
+        <dependency>
+            <groupId>jakarta.enterprise</groupId>
+            <artifactId>jakarta.enterprise.cdi-api</artifactId>
+            <version>3.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Jakarta Persistence -->
+        <dependency>
+            <groupId>jakarta.persistence</groupId>
+            <artifactId>jakarta.persistence-api</artifactId>
+            <version>3.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- JPA Implementation -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>5.6.15.Final</version>
-            <scope>provided</scope>
+            <version>6.2.7.Final</version>
+            <scope>provided</scope>  <!-- Provided by the application server -->
         </dependency>
 
-        <!-- Testing -->
+        <!-- Unit Testing Framework -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.13.2</version>
-            <scope>test</scope>
+            <scope>test</scope>      <!-- Only used during testing -->
         </dependency>
 
-        <!-- Logging -->
+        <!-- Logging Framework -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -61,14 +125,17 @@
         </dependency>
     </dependencies>
 
+    <!-- Build Configuration -->
     <build>
-        <finalName>${project.artifactId}</finalName>
+        <finalName>${project.artifactId}</finalName>  <!-- Name of the final WAR file -->
         <plugins>
+            <!-- WAR Packaging Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.3.2</version>
             </plugin>
+            <!-- WildFly Deployment Plugin -->
             <plugin>
                 <groupId>org.wildfly.plugins</groupId>
                 <artifactId>wildfly-maven-plugin</artifactId>

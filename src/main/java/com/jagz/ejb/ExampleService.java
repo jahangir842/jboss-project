@@ -1,4 +1,4 @@
-package com.example.ejb;
+package com.jagz.ejb;
 
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
