@@ -16,9 +16,9 @@ This project demonstrates the implementation of a modern Java EE application usi
 
 ## Prerequisites
 
-- Java Development Kit (JDK) 11 or later
-- Maven 3.6 or later
-- JBoss Application Server (WildFly) 26 or later
+- Java Development Kit (JDK) 17 or later
+- Maven 3.9 or later
+- JBoss Application Server (WildFly) 30 or later
 - Git
 - A modern web browser
 
@@ -121,6 +121,34 @@ $JBOSS_HOME/bin/add-user.sh
 ```bash
 git clone <repository-url>
 cd jboss
+```
+
+
+### Project Structure Template
+Each project should follow this basic structure:
+```
+project-name/
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── com/yourcompany/
+│   │   │       ├── ejb/        # EJB components
+│   │   │       ├── rest/       # REST endpoints
+│   │   │       ├── model/      # JPA entities
+│   │   │       ├── service/    # Business logic
+│   │   │       └── util/       # Utility classes
+│   │   ├── resources/
+│   │   │   ├── META-INF/
+│   │   │   │   └── persistence.xml
+│   │   │   └── application.properties
+│   │   └── webapp/
+│   │       ├── WEB-INF/
+│   │       │   └── web.xml
+│   │       └── index.html
+│   └── test/
+│       └── java/
+│           └── com/yourcompany/
+└── pom.xml
 ```
 
 ### 2. Build the Application
