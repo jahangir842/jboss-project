@@ -114,5 +114,4 @@ htmlcov/
 *.bak
 *.tmp
 *.temp
-.gitignore
 branch_structure.json
